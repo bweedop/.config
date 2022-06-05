@@ -14,5 +14,5 @@ iterm2/
 
 # Ignore vim plugged; Will be created when plugins installed
 nvim/plugged/
-# Ignore undodir 
 nvim/undodir/
+nvim/autoload/

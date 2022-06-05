@@ -1,5 +1,7 @@
 syntax on
 
+" Read files automatically when changes occur outside of vim
+set autoread
 set noerrorbells
 set tabstop=2 softtabstop=2
 set shiftwidth=2
@@ -19,6 +21,7 @@ set secure
 set backspace=indent,eol,start
 
 set colorcolumn=80
+
 " Keep cursor in middle of screen
 set so=999
 highlight ColorColumn ctermbg=30 guibg=lightgrey
@@ -26,35 +29,21 @@ highlight ColorColumn ctermbg=30 guibg=lightgrey
 filetype plugin on
 set nocompatible
 
-""inoremap " ""<left>
-""inoremap ' ''<left>
-""inoremap ( ()<left>
-""inoremap [ []<left>
-""inoremap { {}<left>
-""inoremap {<CR> {<CR>}<ESC>O
-""inoremap {;<CR> {<CR>};<ESC>O
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
 
-" Cursor in terminal
-" https://vim.fandom.com/wiki/Configuring_the_cursor
-" 1 or 0 -> blinking block
-" 2 solid block
-" 3 -> blinking underscore
-" 4 solid underscore
-" Recent versions of xterm (282 or above) also support
-" 5 -> blinking vertical bar
-" 6 -> solid vertical bar
+" auto-install vim-plug                                                                                                                
+if empty(glob('~/.config/nvim/autoload/plug.vim'))                                                                                    
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall                                                                                                      
+endif                                                                                                                                 
 
-
-"if &term =~ '^xterm'
-"    autocmd VimEnter * silent !echo -ne "\<Esc>[1 q"
-"    " normal mode
-"    let &t_EI .= "\<Esc>[1 q"
-"    " insert mode
-"    let &t_SI .= "\<Esc>[1 q"
-"endif
-
-call plug#begin()
-
+call plug#begin('~/.config/nvim/plugged')
 "Plug 'SirVer/ultisnips'
 "Plug 'honza/vim-snippets'
 Plug 'joshdick/onedark.vim'
@@ -80,6 +69,9 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+
+Plug 'numToStr/Comment.nvim'
+
 call plug#end()
 
 let g:python3_host_prog = '/usr/local/bin/python3'
@@ -128,12 +120,6 @@ let g:vsnip_filetypes = {}
 let g:vsnip_filetypes.javascriptreact = ['javascript']
 let g:vsnip_filetypes.typescriptreact = ['typescript']
 
-" UltiSnips keymaps
-"let g:UltiSnipsSnippetsDir="/Users/kweedop/.vim/UltiSnips"
-"let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 """ Vimwiki configuration
 " set path to vimwiki and make the syntax markdown
 let g:vimwiki_list = [{'path': '/Users/kweedop/OneDrive\ -\ Research\ Triangle\ Institute/work-wiki/', 'syntax': 'markdown', 'ext': '.md'}]
@@ -151,9 +137,6 @@ nnoremap <leader>wt :Rg<SPACE>::<left>
 let g:markdown_folding = 1
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_new_list_item_indent = 0
-
-""" YCM configuration
-"let g:ycm_filetype_blacklist = {'markdown': 1}
 
 " External command for date
 nnoremap <leader>now i <C-r>=strftime('%Y-%m-%d')<CR>
@@ -199,15 +182,14 @@ nnoremap <silent> <Leader>gf :YcmCompleter FixIt<CR>
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
 
-" Probably move to php.vim
-" nnoremap <leader>a a->
-" nnoremap <leader>kv a<space>=><space>
-
 " Copy visual selection to machine clipboard
 vmap <leader>cp :w !pbcopy<CR><CR>
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
+
+require('Comment').setup()
+
 -- Setup nvim-cmp.
 local cmp = require'cmp'
 

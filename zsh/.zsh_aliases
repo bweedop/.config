@@ -8,6 +8,7 @@ alias ...='cd ../..'
 
 # tmux aliases
 alias tmls='tmux ls'
+alias ta='tmux a -t'
 
 # kubectl aliases
 alias k='kubectl'
