@@ -1,0 +1,24 @@
+# Color configuration
+export CLICOLOR=1
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+#Getting brew installations on path
+export PATH="/usr/local/sbin:$PATH"
+
+# git autocompletion
+autoload -Uz compinit && compinit
+
+# Enabling git and setting infor var to be used in prompt config
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+# Enable substitution in prompt
+setopt prompt_subst
+
+# TERMINAL PROMPT
+PROMPT='%F{2}%1~ %F{5}${vcs_info_msg_0_}%f>> '
+# %n - username
+# %1~ - working directory
+zstyle ':vcs_info:git:*' formats '[%b] '
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

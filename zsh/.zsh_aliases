@@ -1,0 +1,16 @@
+# Colorized output using the ls command
+alias ls='ls -G'
+alias ll='ls -lG'
+
+# Navigations
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# tmux aliases
+alias tmls='tmux ls'
+
+# kubectl aliases
+alias k='kubectl'
+
+# Apply personal ansible configuration
+alias ansible-personal='ansible-playbook -i "localhost," -c local ~/ansible/ansible-osx.yml'
