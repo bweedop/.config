@@ -1,1 +1,18 @@
 configstore/
+
+# Ignore tmux plugins; They'll be installed elsewhere
+tmux/plugins/
+
+# Ignore htop configurations
+htop/
+
+# Ignore raycast configurations
+raycast/
+
+# Ignore iterm2 configurations
+iterm2/
+
+# Ignore vim plugged; Will be created when plugins installed
+nvim/plugged/
+# Ignore undodir 
+nvim/undodir/
